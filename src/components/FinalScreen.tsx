@@ -14,7 +14,7 @@ export function FinalScreen({ onBack }: FinalScreenProps) {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowCTA(true);
-        }, 400);
+        }, 600);
         return () => clearTimeout(timer);
     }, []);
 
@@ -26,7 +26,7 @@ export function FinalScreen({ onBack }: FinalScreenProps) {
         <div className="animate-in flex min-h-[70vh] flex-col px-4 py-6">
             <div className="mx-auto w-full max-w-md flex-1">
                 {/* Back Button */}
-                <button onClick={onBack} className="btn-back mb-6">
+                <button onClick={onBack} className="glass-btn inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium mb-8 text-[var(--muted)] hover:text-[var(--text-main)]">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -44,47 +44,63 @@ export function FinalScreen({ onBack }: FinalScreenProps) {
                 </button>
 
                 {/* Result Badge */}
-                <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[var(--success)] px-4 py-1.5 text-sm font-medium text-white">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    >
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                        <polyline points="22 4 12 14.01 9 11.01" />
-                    </svg>
-                    Assessment Complete
+                <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-green-500/30 bg-green-500/10 px-4 py-1.5 backdrop-blur-md">
+                    <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+                    </span>
+                    <span className="text-sm font-semibold text-green-500 tracking-wide uppercase">Analysis Complete</span>
                 </div>
 
                 {/* Result Message */}
-                <p className="mb-8 text-lg leading-relaxed text-[var(--foreground)]">
-                    Based on your answers, we&apos;ve identified an online business model that
-                    aligns with your time, skills, and income goals — and is designed to
-                    scale to <strong>$10K/month</strong> without ads, products, or technical
-                    overwhelm.
-                </p>
+                <div className="mb-10 space-y-4">
+                    <p className="text-xl leading-relaxed text-[var(--text-secondary)]">
+                        Based on your answers, we&apos;ve identified a specific business model that matches your profile.
+                    </p>
+
+                    <div className="glass-card rounded-2xl p-6 border-l-4 border-l-[var(--color-primary-start)]">
+                        <p className="text-lg text-[var(--text-main)]">
+                            It&apos;s designed to scale to <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary-start)] to-[var(--color-primary-end)] font-bold">$10K/month</span> without ads, products, or technical overwhelm.
+                        </p>
+                    </div>
+                </div>
 
                 {/* Question */}
-                <h2 className="mb-8 text-xl font-semibold leading-relaxed text-[var(--foreground)] sm:text-2xl">
-                    Would you like FREE, targeted training that shows the exact path for
-                    your situation?
+                <h2 className="mb-8 text-2xl font-bold leading-tight text-[var(--text-main)]">
+                    Would you like FREE, targeted training that reveals this exact path?
                 </h2>
 
                 {/* CTA Buttons */}
                 {showCTA && (
-                    <div className="animate-fade flex flex-col gap-3">
-                        <button onClick={handleYes} className="btn-primary">
-                            Yes! Send me the free targeted training.
-                        </button>
-                        <button className="btn-secondary">
-                            I&apos;ll try it on my own
-                        </button>
+                    <div className="animate-slide-up sticky bottom-0 w-full">
+                        {/* Gradient fade for bottom sticking - subtle difference per theme but generic transparent works */}
+                        <div className="absolute inset-x-0 bottom-full h-12 bg-gradient-to-t from-[var(--background)] to-transparent pointer-events-none" />
+
+                        <div className="bg-[var(--background)]/80 backdrop-blur-sm pb-8 pt-4">
+                            <button
+                                onClick={handleYes}
+                                className="btn-primary-gradient w-full rounded-2xl py-5 px-6 text-lg font-bold uppercase tracking-wide flex items-center justify-center gap-3 group"
+                            >
+                                <span>Yes! Keep Watching</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="3"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="transition-transform duration-300 group-hover:translate-x-1"
+                                >
+                                    <polyline points="9 18 15 12 9 6" />
+                                </svg>
+                            </button>
+                            <p className="mt-4 text-center text-xs text-[var(--muted)]">
+                                Limited availability training • 100% Free
+                            </p>
+                        </div>
                     </div>
                 )}
             </div>

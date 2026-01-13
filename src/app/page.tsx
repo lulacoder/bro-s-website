@@ -1,10 +1,12 @@
 "use client";
 
-import React from "react";
-import { useQuiz } from "@/hooks/useQuiz";
+import { LoadingScreen } from "@/components/LoadingScreen";
+import { FinalScreen } from "@/components/FinalScreen";
 import { ProgressBar } from "@/components/ProgressBar";
 import { QuestionSlide } from "@/components/QuestionSlide";
-import { FinalScreen } from "@/components/FinalScreen";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { useQuiz } from "@/hooks/useQuiz";
+import React from "react";
 
 const QUESTIONS = [
   {
@@ -97,10 +99,6 @@ const QUESTIONS = [
   },
 ];
 
-import { LoadingScreen } from "@/components/LoadingScreen";
-
-// ... existing imports
-
 export default function Home() {
   const {
     currentIndex,
@@ -135,9 +133,15 @@ export default function Home() {
   };
 
   return (
-    <div className="flex min-h-dvh flex-col">
+    <div className="flex min-h-dvh flex-col overflow-hidden relative">
+      {/* Dynamic Background */}
+      <div className="bg-mesh" />
+
+      {/* Theme Toggle */}
+      <ThemeToggle />
+
       {/* Header - Hide during loading and final screen */}
-      <header className="sticky top-0 z-10 bg-[var(--background)]">
+      <header className="sticky top-0 z-10">
         {!isComplete && !isAnalyzing && !showFinal && (
           <ProgressBar
             progress={progress}
@@ -150,12 +154,12 @@ export default function Home() {
       {/* Main Content */}
       <main className="flex flex-1 flex-col">
         {currentIndex === 0 && !isComplete && (
-          <div className="animate-in px-4 py-6 text-center">
+          <div className="animate-in px-4 py-8 text-center text-[var(--text-main)]">
             <div className="mx-auto max-w-md">
-              <span className="mb-4 inline-block rounded-full bg-[var(--color-accent)] px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-white">
+              <span className="mb-6 inline-flex animate-pulse-glow items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--mesh-color-1)] px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-[var(--text-secondary)] backdrop-blur-md">
                 1-Minute Personal Assessment
               </span>
-              <h1 className="text-2xl font-bold leading-tight text-[var(--foreground)] sm:text-3xl">
+              <h1 className="text-3xl font-bold leading-tight sm:text-4xl text-transparent bg-clip-text bg-gradient-to-br from-[var(--text-main)] via-[var(--text-main)] to-[var(--text-secondary)] drop-shadow-lg">
                 What&apos;s the BEST Online Business for YOU — and how much could
                 you realistically earn?
               </h1>

@@ -6,12 +6,10 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     const [dots, setDots] = useState("");
 
     useEffect(() => {
-        // Complete after 3 seconds
         const timer = setTimeout(() => {
             onComplete();
         }, 3000);
 
-        // Animate dots
         const interval = setInterval(() => {
             setDots((prev) => (prev.length >= 3 ? "" : prev + "."));
         }, 500);
@@ -24,16 +22,21 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
     return (
         <div className="animate-in flex min-h-[60vh] flex-col items-center justify-center px-4 py-8 text-center">
-            {/* Spinner */}
-            <div className="mb-8 h-12 w-12 animate-spin rounded-full border-4 border-[var(--border)] border-t-[var(--color-primary)]" />
+            {/* Animated Orb */}
+            <div className="relative mb-12">
+                <div className="absolute inset-0 animate-ping rounded-full bg-[var(--color-primary-start)] opacity-20 blur-xl" />
+                <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-primary-start)] to-[var(--color-primary-end)] shadow-2xl shadow-[var(--color-primary-start)]/30">
+                    <div className="h-16 w-16 animate-spin rounded-full border-4 border-white/20 border-t-white" />
+                </div>
+            </div>
 
             {/* Analyzing Text */}
-            <h2 className="mb-2 text-xl font-semibold text-[var(--foreground)]">
-                Analyzing your results{dots}
+            <h2 className="mb-3 text-2xl font-bold text-[var(--text-main)]">
+                Analyzing Results{dots}
             </h2>
 
-            <p className="max-w-xs text-sm text-[var(--muted)]">
-                We are identifying the best business model for your specific situation.
+            <p className="max-w-xs text-sm text-[var(--text-secondary)] animate-pulse">
+                Identifying the perfect business model for your goals...
             </p>
         </div>
     );
