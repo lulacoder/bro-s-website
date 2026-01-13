@@ -1,15 +1,22 @@
-import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const outfit = Outfit({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
-  title: "Next.js 16 + Tailwind v4",
-  description: "A premium starter with the latest technologies.",
+  title: "Find Your Best Online Business | Free Assessment",
+  description: "Discover which online business model fits your time, skills, and income goals. Take our free 1-minute assessment.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -18,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${outfit.variable} antialiased font-sans`}>
+    <html lang="en">
+      <body className={`${inter.variable} font-sans`}>
         {children}
       </body>
     </html>

@@ -1,89 +1,159 @@
+"use client";
+
 import React from "react";
+import { useQuiz } from "@/hooks/useQuiz";
+import { ProgressBar } from "@/components/ProgressBar";
+import { QuestionSlide } from "@/components/QuestionSlide";
+import { FinalScreen } from "@/components/FinalScreen";
+
+const QUESTIONS = [
+  {
+    question: "In 2026, I want to…",
+    options: [
+      "Replace my income and work fully from my laptop",
+      "Add consistent side income from my laptop",
+    ],
+  },
+  {
+    question: "I want this because…",
+    options: [
+      "I want to quit my 9-5 and stop trading time for money",
+      "I want financial security for myself and my family",
+      "I want more freedom over my time and life",
+    ],
+  },
+  {
+    question: "To make this worth it, I need to earn online…",
+    options: [
+      "At least $2,000/month",
+      "At least $5,000/month",
+      "$10,000+/month",
+    ],
+  },
+  {
+    question: "Which best describes your situation right now?",
+    options: [
+      "I work a full-time 9-5",
+      "I work a 9-5 and have a side hustle",
+      "I don't currently work (student / retired) but want income",
+    ],
+  },
+  {
+    question: "On a normal day, I have…",
+    options: [
+      "Plenty of free time",
+      "1–3 focused hours",
+      "Less than 1 hour",
+    ],
+  },
+  {
+    question: "What do you NOT want to deal with?",
+    options: [
+      "Creating my own products",
+      "Technical stuff (websites, funnels, automations)",
+      "Recording content",
+    ],
+  },
+  {
+    question: "I want a business that…",
+    options: [
+      "Requires me to show my face",
+      "Does not require me to show my face",
+      "Doesn't require it, but I'm open to it",
+    ],
+  },
+  {
+    question: "My online business experience is…",
+    options: [
+      "I've made serious money online before",
+      "I've made some money online",
+      "I've never made money online",
+    ],
+  },
+  {
+    question: "What's actually stopping you?",
+    options: [
+      "I don't know where to start",
+      "I don't know how to execute",
+      "I don't know which business model is best",
+    ],
+  },
+  {
+    question: "I'd hit my goals faster if…",
+    options: [
+      "I didn't have to figure everything out alone",
+      "I had a coach guiding me step-by-step",
+      "I didn't need to waste time on technical setup",
+    ],
+  },
+  {
+    question: "The biggest change I want right now is…",
+    options: [
+      "Quit my 9-5 and earn more",
+      "Get my time back",
+      "Travel and work from anywhere",
+      "Support my family without stress",
+    ],
+  },
+];
 
 export default function Home() {
+  const {
+    currentIndex,
+    isComplete,
+    totalQuestions,
+    progress,
+    selectAnswer,
+    goBack,
+    getAnswerForQuestion,
+  } = useQuiz();
+
+  const handleGoBackFromFinal = () => {
+    goBack();
+  };
+
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      {/* Background Blobs */}
-      <div className="absolute top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-brand-500/20 blur-[120px] animate-pulse-slow" />
-      <div className="absolute bottom-[-10%] right-[-10%] h-[500px] w-[500px] rounded-full bg-brand-300/20 blur-[120px] animate-pulse-slow" />
+    <div className="flex min-h-dvh flex-col">
+      {/* Header */}
+      <header className="sticky top-0 z-10 bg-[var(--background)]">
+        {!isComplete && (
+          <ProgressBar
+            progress={progress}
+            currentStep={currentIndex + 1}
+            totalSteps={totalQuestions}
+          />
+        )}
+      </header>
 
-      <main className="relative flex min-h-screen flex-col items-center justify-center p-6 text-center lg:p-24">
-        {/* Badge */}
-        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-brand-500/20 bg-brand-500/5 px-4 py-1.5 text-sm font-medium text-brand-300 backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4 duration-1000">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-75"></span>
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500"></span>
-          </span>
-          Next.js 16 + Tailwind CSS v4
-        </div>
-
-        {/* Hero Title */}
-        <h1 className="mb-8 max-w-4xl text-5xl font-bold tracking-tight sm:text-7xl animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both">
-          Experience the <span className="gradient-text">Future of Web</span> Development
-        </h1>
-
-        <p className="mb-12 max-w-2xl text-lg text-zinc-400 sm:text-xl animate-in fade-in slide-in-from-bottom-12 duration-1000 fill-mode-both">
-          Built with speed, aesthetics, and the latest cutting-edge technologies.
-          Tailwind v4 is here with a CSS-first approach and lightning-fast performance.
-        </p>
-
-        {/* Floating Card UI Demo */}
-        <div className="group relative mx-auto w-full max-w-md animate-float animate-in fade-in scale-in-95 duration-1000 fill-mode-both delay-300">
-          <div className="glass rounded-3xl p-8 transition-all duration-500 group-hover:scale-[1.02] group-hover:border-brand-500/40">
-            <div className="mb-6 flex items-center justify-between">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-500/10 text-brand-400 transition-colors group-hover:bg-brand-500 group-hover:text-white">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
-              </div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-brand-400/60">V4 Engine</span>
-            </div>
-
-            <h3 className="mb-2 text-xl font-bold text-white">Advanced Architecture</h3>
-            <p className="text-zinc-400">
-              The new CSS-first engine optimizes your build by 90% and provides a more intuitive developer experience.
-            </p>
-
-            <div className="mt-8 flex items-center gap-4">
-              <div className="h-2 flex-1 rounded-full bg-zinc-800">
-                <div className="h-full w-3/4 rounded-full bg-brand-500" />
-              </div>
-              <span className="text-sm font-medium text-brand-400">75% Faster</span>
+      {/* Main Content */}
+      <main className="flex flex-1 flex-col">
+        {currentIndex === 0 && !isComplete && (
+          <div className="animate-in px-4 py-6 text-center">
+            <div className="mx-auto max-w-md">
+              <span className="mb-4 inline-block rounded-full bg-[var(--color-accent)] px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-white">
+                1-Minute Personal Assessment
+              </span>
+              <h1 className="text-2xl font-bold leading-tight text-[var(--foreground)] sm:text-3xl">
+                What&apos;s the BEST Online Business for YOU — and how much could
+                you realistically earn?
+              </h1>
             </div>
           </div>
+        )}
 
-          {/* Decorative elements */}
-          <div className="absolute -top-4 -right-4 h-24 w-24 bg-brand-500/10 blur-2xl group-hover:bg-brand-500/20" />
-          <div className="absolute -bottom-4 -left-4 h-24 w-24 bg-brand-300/10 blur-2xl group-hover:bg-brand-300/20" />
-        </div>
-
-        {/* Action Buttons */}
-        <div className="mt-16 flex flex-col gap-4 sm:flex-row animate-in fade-in slide-in-from-bottom-16 duration-1000 fill-mode-both delay-500">
-          <button className="flex h-14 items-center justify-center rounded-2xl bg-brand-500 px-8 text-lg font-semibold text-white transition-all hover:bg-brand-600 hover:shadow-[0_0_40px_rgba(58,150,250,0.3)] active:scale-[0.98]">
-            Get Started
-          </button>
-          <button className="flex h-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-8 text-lg font-semibold text-white backdrop-blur-md transition-all hover:bg-white/10 active:scale-[0.98]">
-            View Docs
-          </button>
-        </div>
-
-        {/* Tech Stack Icons */}
-        <div className="mt-24 flex flex-wrap justify-center gap-8 opacity-40 grayscale transition-all hover:opacity-100 hover:grayscale-0 animate-in fade-in duration-1000 delay-700">
-          <span className="text-xl font-bold tracking-tighter">NEXT.JS</span>
-          <span className="text-xl font-bold tracking-tighter">REACT 19</span>
-          <span className="text-xl font-bold tracking-tighter">TAILWIND V4</span>
-          <span className="text-xl font-bold tracking-tighter">TYPESCRIPT</span>
-        </div>
+        {!isComplete ? (
+          <QuestionSlide
+            key={currentIndex}
+            question={QUESTIONS[currentIndex].question}
+            options={QUESTIONS[currentIndex].options}
+            selectedAnswer={getAnswerForQuestion(currentIndex)}
+            onSelect={selectAnswer}
+            onBack={goBack}
+            showBack={currentIndex > 0}
+          />
+        ) : (
+          <FinalScreen onBack={handleGoBackFromFinal} />
+        )}
       </main>
     </div>
   );
