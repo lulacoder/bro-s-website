@@ -60,7 +60,7 @@ export function FinalScreen({ onBack }: FinalScreenProps) {
 
                     <div className="glass-card rounded-2xl p-6 border-l-4 border-l-[var(--color-primary-start)]">
                         <p className="text-lg text-[var(--text-main)]">
-                            It&apos;s designed to scale to <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary-start)] to-[var(--color-primary-end)] font-bold">$10K/month</span> without ads, products, or technical overwhelm.
+                            It&apos;s designed to scale to <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary-start)] to-[var(--color-primary-end)] font-bold">$10K/month</span> without paids ads, products, or technical overwhelm.
                         </p>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ export function FinalScreen({ onBack }: FinalScreenProps) {
                                 onClick={handleYes}
                                 className="btn-primary-gradient w-full rounded-2xl py-5 px-6 text-lg font-bold uppercase tracking-wide flex items-center justify-center gap-3 group"
                             >
-                                <span>Yes! Keep Watching</span>
+                                <span>Yes! I want the FREE targeted training</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="20"
