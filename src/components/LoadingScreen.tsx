@@ -8,7 +8,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     useEffect(() => {
         const timer = setTimeout(() => {
             onComplete();
-        }, 3000);
+        }, 8000);
 
         const interval = setInterval(() => {
             setDots((prev) => (prev.length >= 3 ? "" : prev + "."));

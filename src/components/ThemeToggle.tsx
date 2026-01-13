@@ -4,15 +4,22 @@ import React, { useEffect, useState } from "react";
 
 export function ThemeToggle() {
     const [isDark, setIsDark] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        // Check system preference or default to light
+        setMounted(true);
+        // Check localStorage for saved preference, default to light
+        const savedTheme = localStorage.getItem("theme");
         const html = document.documentElement;
-        if (html.classList.contains("dark")) {
+
+        if (savedTheme === "dark") {
+            html.classList.add("dark");
             setIsDark(true);
         } else {
-            setIsDark(false);
+            // Default to light mode for all new users
             html.classList.remove("dark");
+            setIsDark(false);
+            localStorage.setItem("theme", "light");
         }
     }, []);
 
@@ -21,16 +28,21 @@ export function ThemeToggle() {
         if (isDark) {
             html.classList.remove("dark");
             setIsDark(false);
+            localStorage.setItem("theme", "light");
         } else {
             html.classList.add("dark");
             setIsDark(true);
+            localStorage.setItem("theme", "dark");
         }
     };
+
+    // Prevent hydration mismatch by not rendering until mounted
+    if (!mounted) return null;
 
     return (
         <button
             onClick={toggleTheme}
-            className="fixed top-20 right-4 z-[100] flex h-10 w-10 items-center justify-center rounded-full glass-btn transition-transform hover:scale-110"
+            className="absolute top-20 right-4 z-[100] flex h-10 w-10 items-center justify-center rounded-full glass-btn transition-transform hover:scale-110"
             aria-label="Toggle Theme"
         >
             {isDark ? (
