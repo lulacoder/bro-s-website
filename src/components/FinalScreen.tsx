@@ -83,7 +83,7 @@ export function FinalScreen({ onBack }: FinalScreenProps) {
                             Yes! Send me the free targeted training.
                         </button>
                         <button className="btn-secondary">
-                            No, I&apos;ll figure it out on my own.
+                            I&apos;ll try it on my own
                         </button>
                     </div>
                 )}

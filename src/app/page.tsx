@@ -97,6 +97,10 @@ const QUESTIONS = [
   },
 ];
 
+import { LoadingScreen } from "@/components/LoadingScreen";
+
+// ... existing imports
+
 export default function Home() {
   const {
     currentIndex,
@@ -108,15 +112,33 @@ export default function Home() {
     getAnswerForQuestion,
   } = useQuiz();
 
+  // Local state to handle the loading phase
+  const [isAnalyzing, setIsAnalyzing] = React.useState(false);
+  const [showFinal, setShowFinal] = React.useState(false);
+
+  // Effect to trigger analyzing state when quiz completes
+  React.useEffect(() => {
+    if (isComplete) {
+      setIsAnalyzing(true);
+    }
+  }, [isComplete]);
+
+  const handleLoadingComplete = () => {
+    setIsAnalyzing(false);
+    setShowFinal(true);
+  };
+
   const handleGoBackFromFinal = () => {
+    setShowFinal(false);
+    setIsAnalyzing(false);
     goBack();
   };
 
   return (
     <div className="flex min-h-dvh flex-col">
-      {/* Header */}
+      {/* Header - Hide during loading and final screen */}
       <header className="sticky top-0 z-10 bg-[var(--background)]">
-        {!isComplete && (
+        {!isComplete && !isAnalyzing && !showFinal && (
           <ProgressBar
             progress={progress}
             currentStep={currentIndex + 1}
@@ -151,9 +173,11 @@ export default function Home() {
             onBack={goBack}
             showBack={currentIndex > 0}
           />
-        ) : (
+        ) : isAnalyzing ? (
+          <LoadingScreen onComplete={handleLoadingComplete} />
+        ) : showFinal ? (
           <FinalScreen onBack={handleGoBackFromFinal} />
-        )}
+        ) : null}
       </main>
     </div>
   );

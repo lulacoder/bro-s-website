@@ -49,15 +49,35 @@ export function QuestionSlide({
 
                 {/* Options */}
                 <div className="flex flex-col gap-3">
-                    {options.map((option, index) => (
-                        <button
-                            key={index}
-                            onClick={() => onSelect(option)}
-                            className={`quiz-btn ${selectedAnswer === option ? "selected" : ""}`}
-                        >
-                            {option}
-                        </button>
-                    ))}
+                    {options.map((option, index) => {
+                        const isSelected = selectedAnswer === option;
+                        return (
+                            <button
+                                key={index}
+                                onClick={() => onSelect(option)}
+                                className={`quiz-btn group justify-between ${isSelected ? "selected" : ""}`}
+                            >
+                                <span>{option}</span>
+                                {isSelected && (
+                                    <span className="ml-auto shrink-0 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-primary)] text-white animate-in zoom-in spin-in-180 duration-300">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="3"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <polyline points="20 6 9 17 4 12" />
+                                        </svg>
+                                    </span>
+                                )}
+                            </button>
+                        );
+                    })}
                 </div>
             </div>
         </div>
