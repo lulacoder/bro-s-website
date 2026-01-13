@@ -3,18 +3,16 @@
 import React, { useEffect, useState } from "react";
 
 export function ThemeToggle() {
-    const [isDark, setIsDark] = useState(true);
+    const [isDark, setIsDark] = useState(false);
 
     useEffect(() => {
-        // Check system preference or default to dark
+        // Check system preference or default to light
         const html = document.documentElement;
         if (html.classList.contains("dark")) {
             setIsDark(true);
         } else {
             setIsDark(false);
-            // Default to dark mode if no preference
-            html.classList.add("dark");
-            setIsDark(true);
+            html.classList.remove("dark");
         }
     }, []);
 
@@ -32,7 +30,7 @@ export function ThemeToggle() {
     return (
         <button
             onClick={toggleTheme}
-            className="fixed top-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full glass-btn transition-transform hover:scale-110"
+            className="fixed top-20 right-4 z-[100] flex h-10 w-10 items-center justify-center rounded-full glass-btn transition-transform hover:scale-110"
             aria-label="Toggle Theme"
         >
             {isDark ? (
